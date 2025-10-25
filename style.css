@@ -28,6 +28,7 @@ body {
     position: relative; 
     z-index: 2;
     cursor: pointer; 
+    transition: transform 0.5s ease-in-out;
 }
 
 .pivot {
@@ -37,10 +38,33 @@ body {
     border-right: 30px solid transparent;
     border-bottom: 50px solid #666;
     position: absolute;
-    top: 5px; 
+    top: 20px; 
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+}
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    margin-top: 20px;
+    background: #fff;
+    padding: 15px 10px;
+    font-family: Arial;
+}
+.score-item { 
+    text-align: center;
+    flex: 1; }
+
+.score-item .label {
+    display: block;
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 5px;
+}
+.score-item .value { 
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .log-container {
