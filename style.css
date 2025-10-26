@@ -86,7 +86,6 @@ body {
 }
 
 .weight-object {
-    background-color: #ff1900;
     border-radius: 50%;
     position: absolute;
     bottom: 20px; 
@@ -100,9 +99,6 @@ body {
     cursor: default;
 
 }
-
-
-
 
 .controls {
     width: 400px;

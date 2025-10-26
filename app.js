@@ -8,7 +8,8 @@ const rightWeightBox = document.getElementById('right-weight');
 const tiltAngleBox = document.getElementById('tilt-angle');
 const nextWeightBox = document.getElementById('next-weight');
 const seesawArea = document.getElementById('seesaw-area');
-const dropSound = new Audio('sounds/blub.waw');
+const dropSound = new Audio('sounds/blub.wav');
+const ballColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'cyan', 'brown', 'gray'];
 
 let objectsOnSeesaw = [];
 let nextWeight;
@@ -102,6 +103,7 @@ function drawBall(distance, weight) {
     ball.style.width = `${diameter}px` ;
     ball.style.height = `${diameter}px`;
     ball.textContent = weight;
+    ball.style.backgroundColor = ballColors[weight - 1]
 
     plank.appendChild(ball);
 }

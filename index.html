@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seesaw</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
+
 <body>
     <div class="simulation-container">
         <div class="seesaw" id="seesaw-area">
@@ -18,26 +18,32 @@
             </div>
         </div>
     </div>
+
     <div class="scoreboard">
         <div class="score-item">
             <span class="label">LEFT WEIGHT</span>
             <span id="left-weight" class="value">0.0 kg</span>
         </div>
+
         <div class="score-item">
             <span class="label">RIGHT WEIGHT</span>
             <span id="right-weight" class="value">0.0 kg</span>
         </div>
+
         <div class="score-item">
             <span class="label">NEXT WEIGHT</span>
             <span id="next-weight" class="value">? kg</span>
         </div>
+        
         <div class="score-item">
             <span class="label">TILT ANGLE</span>
             <span id="tilt-angle" class="value">0.0°</span>
         </div>
     </div>
     <div class="controls">
-        <button id="reset-button">Reset</button>
+        <button id="reset-button">
+            Reset
+        </button>
     </div>
     
     <div class="log-container">
@@ -48,4 +54,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
