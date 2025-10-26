@@ -7,29 +7,35 @@ const leftWeightBox = document.getElementById('left-weight');
 const rightWeightBox = document.getElementById('right-weight');
 const tiltAngleBox = document.getElementById('tilt-angle');
 const nextWeightBox = document.getElementById('next-weight');
+const seesawArea = document.getElementById('seesaw-area');
+const dropSound = new Audio('sounds/blub.waw');
 
 let objectsOnSeesaw = [];
-let nextWeight = 1;
+let nextWeight;
 
 function initializeApp() {
     const savedState = localStorage.getItem('seesawState');
     if (savedState) objectsOnSeesaw = JSON.parse(savedState);
     renderScreen();
+    generateNewNextWeight();
 }
 
 resetButton.addEventListener('click', handleReset);
 function handleReset() {
     objectsOnSeesaw = [];
+    //clean up local storage
     localStorage.removeItem('seesawState');
     renderScreen();
-
-    leftWeightBox.textContent = '0.0 kg';
-    rightWeightBox.textContent = '0.0 kg';
-    tiltAngleBox.textContent = '0.0°';
+    generateNewNextWeight();
 }
 
 plank.addEventListener('click', handlePlankClick);
 function handlePlankClick(event) {
+    if (event.target !== plank) {return;}
+
+    dropSound.currentTime = 0;
+    dropSound.play();
+
     const plankWidth = plank.offsetWidth;
     const plankCenter = plankWidth / 2;
     const clickPosition = event.offsetX;
@@ -43,6 +49,7 @@ function handlePlankClick(event) {
     objectsOnSeesaw.push(newObject);
     localStorage.setItem('seesawState', JSON.stringify(objectsOnSeesaw));
     renderScreen();
+    generateNewNextWeight();
 }
 
 function renderScreen() {
@@ -53,11 +60,11 @@ function renderScreen() {
     let totalRightTorque = 0;
 
     let totalLeftWeight = 0;
-    let totalRightWeight = 0;
+    let totalRightWeight = 0;
 
 
     objectsOnSeesaw.forEach(obj => {
-        drawBall(obj.distance);
+        drawBall(obj.distance, obj.weight);
         addLogEntry(obj.distance, obj.weight);
 
         const torque = obj.weight * obj.distance;
@@ -78,21 +85,36 @@ function renderScreen() {
     plank.style.transform = `rotate(${angle}deg)`;
 
     leftWeightBox.textContent = `${totalLeftWeight.toFixed(1)} kg`;
-    rightWeightBox.textContent = `${totalRightWeight.toFixed(1)} kg`;
-    tiltAngleBox.textContent = `${angle.toFixed(1)}°`;
+    rightWeightBox.textContent = `${totalRightWeight.toFixed(1)} kg`;
+    tiltAngleBox.textContent = `${angle.toFixed(1)}°`;
 
 }
 
-function drawBall(distance) {
+function drawBall(distance, weight) {
     const ball = document.createElement('div');
     ball.className = 'weight-object';
     ball.style.left = `calc(50% + ${distance}px)`;
+
+    const baseSize = 25;
+    const scaleFactor = 3;
+    const diameter = baseSize + ((weight-1) * scaleFactor);
+
+    ball.style.width = `${diameter}px` ;
+    ball.style.height = `${diameter}px`;
+    ball.textContent = weight;
+
     plank.appendChild(ball);
 }
+
 function addLogEntry(distance, weight) {
     const logItem = document.createElement('li');
     const side = distance < 0 ? 'Left' : 'Right';
     const positiveDistance = Math.abs(distance);
     logItem.textContent = `${weight}kg dropped on ${side} side ${positiveDistance.toFixed(0)}px from center`;
     logList.prepend(logItem);
+}
+
+function generateNewNextWeight(){
+    nextWeight = Math.floor(Math.random() * 10) +1;
+    nextWeightBox.textContent = `${nextWeight} kg`;
 }
