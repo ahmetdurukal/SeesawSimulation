@@ -22,9 +22,8 @@ function initializeApp() {
 }
 
 resetButton.addEventListener('click', handleReset);
-function handleReset() {
+function handleReset() { 
     objectsOnSeesaw = [];
-    //clean up local storage
     localStorage.removeItem('seesawState');
     renderScreen();
     generateNewNextWeight();
@@ -103,7 +102,7 @@ function drawBall(distance, weight) {
     ball.style.width = `${diameter}px` ;
     ball.style.height = `${diameter}px`;
     ball.textContent = weight;
-    ball.style.backgroundColor = ballColors[weight - 1]
+    ball.style.backgroundColor = ballColors[weight - 1];
 
     plank.appendChild(ball);
 }
